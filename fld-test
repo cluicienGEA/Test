@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing Table</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+
+    select {
+      padding: 8px 16px;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-left: 10px;
+      margin-right: 20px;
+      cursor: pointer;
+      background: #ffffff;
+      color: #000;
+      width: auto;
+      display: inline-block;
+    }
+
+    .dropdown-container {
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      color: #fff;
+      text-align: center;
+    }
+
+    .dropdown-label {
+      display: inline-block;
+      margin-right: 20px;
+    }
+
+    .dropdown-block {
+      margin-bottom: 20px;
+      margin-right: 20px;
+    }
+
+    .svcPtlPopup-hidden {
+      display: none;
+    }
+
+    .pricing-table {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 0;
+      max-width: 100%;
+      margin: 20px auto;
+      flex-wrap: wrap;
+    }
+
+    .pricing-col {
+      border: 1px solid #ddd;
+      padding: 20px;
+      text-align: center;
+      transition: all 0.3s ease-in-out;
+      background-color: #000;
+      color: #ffffff;
+      position: relative;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-radius: 10px;
+      margin: 10px;
+      flex: 0 1 100%;
+    }
+
+    .discount-tab {
+  background-color: green; 
+  color: white; 
+  border: none; 
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 14px; 
+  font-weight: bold;
+  cursor: pointer;     
+  margin-top: 10px;  
+  width: auto;       
+  display: block; 
+  margin-left: auto;
+  margin-right: auto; 
+}
+
+
+    .pricing-col:hover {
+      border-color: rgba(0, 0, 0, 0.3);
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .pricing-img {
+      width: 100%;
+      height: auto;
+      min-height: 100px;
+      /* Responsive height */
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 18px;
+      margin-top: 15px;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border: none;
+      background-color: #333;
+      color: #fff;
+      border-radius: 4px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: background-color 0.3s ease-in-out;
+      width: 90%;
+      height: 50px;
+      text-align: center;
+      margin: 10px auto;
+      display: block;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .btn:hover {
+      background-color: green;
+    }
+
+    .svcPtlPopup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      width: 100%;
+      max-width: 350px;
+      min-width: 200px;
+      text-align: center;
+    }
+
+
+    a {
+      text-decoration: none;
+    }
+
+    .svcPtlPopup button {
+      padding: 8px 16px;
+      margin: 10px 0;
+      border: none;
+      background-color: #64a70b;
+      color: #fff;
+      border-radius: 4px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: background-color 0.3s ease-in-out;
+      width: 80%;
+      /* Button width */
+      text-align: center;
+      display: block;
+      cursor: pointer;
+      /* Cursor style */
+    }
+
+    .svcPtlPopup button:hover {
+      background-color: green;
+      /* Hover effect */
+    }
+
+    .svcPtlPopup button:disabled {
+      background-color: grey;
+      /* Hover effect */
+    }
+
+    .svcPtlPopup input {
+      width: 100%;
+      height: 30px;
+      padding: 8px 16px;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-left: 10px;
+      cursor: pointer;
+      background: #ffffff;
+      color: #000;
+      width: auto;
+      display: inline-block;
+    }
+
+    .svcPtlPopup-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      color: #fff;
+      /* Close button color */
+      font-size: 20px;
+      /* Close button size */
+    }
+
+    .svcPtlPopup #cancel,
+    .svcPtlPopup #submit {
+      width: 150px;
+      border-radius: 4px;
+      height: 50px;
+    }
+
+    .svcPtlPopup #errorSpan {
+      color: red;
+    }
+
+    .svcPtlPopup-button-div {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    /* Responsive Styles */
+    @media screen and (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+
+      .pricing-col {
+        flex-basis: 100%;
+        /* Full width on mobile */
+        margin: 5px;
+      }
+
+      h2 {
+        font-size: 16px;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+
+    @media screen and (min-width: 601) and (max-width: 900px) {
+
+      /* Adjustments for mobile landscape */
+      .pricing-col {
+        flex-basis: 50%;
+        /* Two columns in landscape */
+      }
+    }
+
+    @media screen and (min-width: 901px) and (max-width: 1024px) {
+
+      /* Adjustments for tablets */
+      .pricing-col {
+        /* flex-basis: 50%; */
+        flex: 1;
+        /* Two columns on tablet */
+      }
+    }
+
+    /* @media screen and (min-width: 768px) { */
+
+    /* Targeting tablets and up */
+    /* .pricing-col { */
+    /* flex: 1; */
+    /* flex: 0 1 calc(50% - 20px); */
+    /* Two columns with margin accounted for */
+    /* } */
+    /* } */
+
+    @media screen and (min-width: 1025px) {
+
+      /* Adjustments for laptops and desktops */
+      .pricing-col {
+        /* flex-basis: 33.33%; */
+        flex: 1;
+        /* Three columns on larger screens */
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="dropdown-container">
+    <div class="dropdown-block">
+      <div class="dropdown-label">Already have a Bluetooth Module?</div>
+      <select id="moduleSelect">
+        <option value="no" selected>No</option>
+        <option value="yes">Yes</option>
+      </select>
+    </div>
+
+    <div class="dropdown-block">
+      <div class="dropdown-label">Are you an Authorized GE Appliances Servicer?</div>
+      <select id="companySelect">
+        <option value="no" selected>Non-Authorized</option>
+        <option value="yes">Authorized</option>
+      </select>
+    </div>
+
+    <div class="dropdown-block">
+      <div class="dropdown-label">Plan Duration:</div>
+      <select id="planSelect">
+        <option value="monthly">Monthly</option>
+        <option value="yearly" selected>Yearly</option>
+      </select>
+      <span id="infoIcon" style="cursor: pointer;"
+        title="Please note for subscription purchases, we currently offer only yearly billing plans through a GE Appliances account. For monthly billing plans, we kindly request you to proceed with the purchase using a credit card through our secure Stripe portal.">&#9432;</span>
+    </div>
+
+    <!-- Pricing Table -->
+    <div class="pricing-table" id="pricingTable"></div>
+    <div class="svcPtlPopup-overlay"></div>
+    <div class="svcPtlPopup">
+      <div class="svcPtlPopup-close">X</div>
+      <div class="svcPtlPopup-content" id="svcPtlPopupContect"></div>
+    </div>
+    <script>
+      let buyNowButtonClickListener;
+      let moduleSelect = document.getElementById("moduleSelect");
+      let companySelect = document.getElementById("companySelect");
+      let planSelect = document.getElementById("planSelect");
+      let pricingTable = document.getElementById("pricingTable");
+      let popupContect = document.getElementById("svcPtlPopupContect");
+      let validCode = false;
+
+      function openPopup(isModuleIncluded, isAuthorized, isYearly, onlyModule) {
+        // Determine the correct links based on the user's selections
+        let partsLink = isAuthorized
+          ? "https://forms.smarthqpro.com/aparts"
+          : "https://forms.smarthqpro.com/parts";
+        let creditCardLink;
+        if (onlyModule) {
+          creditCardLink = isAuthorized
+            ? "https://buy.stripe.com/eVa5nX1x5dk74pObJ2"
+            : "https://buy.stripe.com/7sI6s17VtbbZbSgfZh";
+        } else if (isModuleIncluded) {
+          if (isYearly && isAuthorized) {
+            creditCardLink = "https://buy.stripe.com/dR62bLb7F3Jx4pObIU";
+          } else if (isYearly && !isAuthorized) {
+            creditCardLink = "https://buy.stripe.com/4gw8A98Zx7ZN9K800a";
+          } else if (!isYearly && isAuthorized) {
+            creditCardLink = "https://buy.stripe.com/28o6s1grZ2Ft4pOcN4";
+          } else {
+            creditCardLink = "https://buy.stripe.com/6oE6s1fnVa7V7C04gt";
+          }
+        } else {
+          if (isYearly && isAuthorized) {
+            creditCardLink = "https://buy.stripe.com/eVaaIhb7FeobbSgfZl";
+          } else if (isYearly && !isAuthorized) {
+            creditCardLink = "https://buy.stripe.com/fZebMlb7Ffsf9K89AV";
+          } else if (!isYearly && isAuthorized) {
+            creditCardLink = "https://buy.stripe.com/eVa2bL2B96VJ8G4dRe";
+          } else {
+            creditCardLink = "https://buy.stripe.com/00g8A98Zxdk71dC4gC";
+          }
+        }
+
+        popupContect.innerHTML = `<h3>Payment Options</h3><a id="creditCard"><button id="creditCard">Pay by Credit Card</button></a><a id="partsAccount"><button id="partsAccountButton">Pay by GE Appliance Account</button></ a>`;
+
+        // Update the popup with the correct links
+        document
+          .getElementById("creditCard")
+          .setAttribute("href", creditCardLink);
+        document.getElementById("partsAccount").setAttribute("href", partsLink);
+
+        // Display the popup
+        document.querySelector(".svcPtlPopup").style.display = "block";
+        document.querySelector(".svcPtlPopup-overlay").style.display = "block";
+
+        if (!isYearly) {
+          document.getElementById("partsAccountButton").disabled = true;
+          document.getElementById("partsAccountButton").title =
+            "Note: Please note for subscription purchases, we currently offer only yearly billing plans through a GE Appliances account. For monthly billing plans, we kindly request you to proceed with the purchase using a credit card through our secure Stripe portal.";
+        }
+        // document.getElementById("infoIcon").addEventListener("click", function () {
+        //   let popup = document.querySelector(".svcPtlPopup");
+        //   // if (popup.classList.contains("svcPtlPopup-hidden")) {
+        //     // popup.classList.remove("svcPtlPopup-hidden");
+        //     popup.innerHTML = `Please note for subscription purchases, we currently offer only yearly billing plans through a GE Appliances account. For monthly billing plans, we kindly request you to proceed with the purchase using a credit card through our secure Stripe portal.`;
+        //     document.querySelector(".svcPtlPopup").style.display = "block";
+        //     document.querySelector(".svcPtlPopup-overlay").style.display = "block";
+
+
+        //   // } else {
+        //     // popup.classList.add("svcPtlPopup-hidden");
+        //   // }
+        // });
+
+      }
+
+      // function updateModuleBuyLink() {
+      //   let isAuthorized = validCode; // Determine authorization status
+      //   let buyNowLink = isAuthorized
+      //     ? "https://buy.stripe.com/eVa5nX1x5dk74pObJ2" // Link for authorized users
+      //     : "https://buy.stripe.com/7sI6s17VtbbZbSgfZh"; // Link for non-authorized users
+
+      //   // Get the "Buy Now" button for the replacement module
+      //   let buyNowButton = document.getElementById("mButton");
+
+      //   if (buyNowButton) {
+      //     if (buyNowButtonClickListener) {
+      //       buyNowButton.removeEventListener(
+      //         "click",
+      //         buyNowButtonClickListener
+      //       );
+      //     }
+
+      //     buyNowButtonClickListener = function (event) {
+      //       event.preventDefault(); // Prevent default button behavior
+      //       window.location.href = buyNowLink; // Redirect to the Stripe link
+      //     };
+      //     buyNowButton.addEventListener("click", buyNowButtonClickListener);
+      //   }
+      // }
+
+      function openAuthPopup(isModuleIncluded, isAuthorized, isYearly) {
+        popupContect.innerHTML = `<h3>Input your Service Number</h3><input id="code" type="text" placeholder="Authorized Service Number"><span id="errorSpan" class="error"></span><div class="svcPtlPopup-button-div"><button id="submit">Submit</button><button id="cancel" style="background-color: black;">Cancel</button></ div>`;
+
+        // Update the popup with the correct links
+        document.getElementById("cancel").addEventListener("click", closePopup);
+        document.getElementById("submit").addEventListener("click", serviceAPI);
+        errorSpan.style.display = "none";
+
+        // Display the popup
+        document.querySelector(".svcPtlPopup").style.display = "block";
+        document.querySelector(".svcPtlPopup-overlay").style.display = "block";
+      }
+
+      function closePopup() {
+        if (!validCode && companySelect.value === "yes") {
+          companySelect.value = "no";
+          let event = new Event("change");
+          companySelect.dispatchEvent(event);
+        }
+        document.querySelector(".svcPtlPopup").style.display = "none";
+        document.querySelector(".svcPtlPopup-overlay").style.display = "none";
+      }
+
+      function generateTable() {
+        let company = companySelect.value;
+        let module = moduleSelect.value;
+        let monthly = planSelect.value === "monthly";
+        let modulePrice = company === "yes" ? 99 : 199;
+        let subscriptionPrice;
+        let creditCardLink;
+        if (module === "no") {
+          if (!monthly && validCode) {
+            creditCardLink = "https://buy.stripe.com/dR62bLb7F3Jx4pObIU";
+          } else if (!monthly && !validCode) {
+            creditCardLink = "https://buy.stripe.com/4gw8A98Zx7ZN9K800a";
+          } else if (monthly && validCode) {
+            creditCardLink = "https://buy.stripe.com/28o6s1grZ2Ft4pOcN4";
+          } else {
+            creditCardLink = "https://buy.stripe.com/6oE6s1fnVa7V7C04gt";
+          }
+        } else {
+          if (!monthly && validCode) {
+            creditCardLink = "https://buy.stripe.com/eVaaIhb7FeobbSgfZl";
+          } else if (!monthly && !validCode) {
+            creditCardLink = "https://buy.stripe.com/fZebMlb7Ffsf9K89AV";
+          } else if (monthly && validCode) {
+            creditCardLink = "https://buy.stripe.com/eVa2bL2B96VJ8G4dRe";
+          } else {
+            creditCardLink = "https://buy.stripe.com/00g8A98Zxdk71dC4gC";
+          }
+        }
+
+        if (monthly) {
+          // Monthly pricing remains the same
+          subscriptionPrice = company === "yes" ? 45 : 55;
+        } else {
+          // Yearly pricing
+          if (company === "yes") {
+            subscriptionPrice = 480; // Authorized yearly price
+          } else {
+            subscriptionPrice = 600; // Non-authorized yearly price
+          }
+        }
+
+        let moduleImgSrc =
+          module === "yes"
+            ? "https://uploads-ssl.webflow.com/61d5fc96029694ef0cf8f249/63ff0b4f20f51d2091c6f26a_SmartHQ%20Pro%20Interface-6.png"
+            : "https://uploads-ssl.webflow.com/61d5fc96029694ef0cf8f249/644fcc6f17b2c36472c32fc2_SmartHQ%20Service%20Interface.png";
+        let replacementModuleLink = validCode
+          ? "https://buy.stripe.com/eVa5nX1x5dk74pObJ2"
+          : "https://buy.stripe.com/7sI6s17VtbbZbSgfZh";
+
+        // Generate the HTML for the pricing table
+        pricingTable.innerHTML = `
+              <div class="pricing-col" style="border-color: #97D700;">
+              <button class="discount-tab">10% off on yearly plan</button>
+                  <div class="pricing-img" style="background-image: url('${moduleImgSrc}');"></div>
+                  <h2>SmartHQ Service${module === "no" ? " + Module" : ""}</h2>
+                  <div style="font-size: 40px; margin-bottom: 20px; color: #97D700; font-weight: bold;">
+                      $${subscriptionPrice} ${monthly ? "/month" : "/year"}
+                  </div>
+                  ${module === "no"
+                    ? `<div style="font-size: 18px; margin-bottom: 20px;">*Excludes a one-time module cost of $${modulePrice}.</div>`
+                    : ""
+                  }
+                  <a href="${creditCardLink}"><button class="btn" id="sButton" style="background-color: #64A70B;">Buy Now</button></a>
+              </div>
+              <div class="pricing-col" style="border-color: #97D700;">
+                  <div class="pricing-img" style="background-image: url('https://uploads-ssl.webflow.com/61d5fc96029694ef0cf8f249/64e1d1b844c35d76357a09f3_Service%20Module.png');"></div>
+                  <h2>Replacement Module</h2>
+                  <div style="font-size: 40px; margin-bottom: 20px; color: #97D700; font-weight: bold;">$${modulePrice}</div>
+                  <div style="font-size: 18px; margin-bottom: 20px;">Lost your Bluetooth module? Add an additional one.</div>
+                  <a href="${replacementModuleLink}"><button class="btn" id="mButton" style="background-color: #64A70B;">Buy Now</button></a>
+              </div>
+              <div class="pricing-col" style="border-color: #97D700;">
+                  <div class="pricing-img" style="background-image: url('https://uploads-ssl.webflow.com/61d5fc96029694ef0cf8f249/6519b3c6af4f709c4a3e72f6_joint-enterprise-business-data-analysis.svg');"></div>
+                  <h2>Enterprise</h2>
+                  <div style="font-size: 40px; margin-bottom: 20px; color: #97D700; font-weight: bold;">Custom</div>
+                  <div style="font-size: 18px; margin-bottom: 20px;">Special pricing available for 5 accounts or more.</div>
+                  <a href="https://forms-fld.smarthqpro.com/contact"><button class="btn" style="background-color: #64A70B;">Contact Us</button></a>
+              </div>
+          `;
+
+        // Attach event listener to the "Buy Now" button for SmartHQ Service
+        // document
+        //   .getElementById("sButton")
+        //   .addEventListener("click", function (event) {
+        //     event.preventDefault();
+        //     let isModuleIncluded = module === "no";
+        //     let onlyModule = false;
+        //     let isAuthorized = validCode;
+        //     let isYearly = !monthly;
+        //     openPopup(isModuleIncluded, isAuthorized, isYearly, onlyModule);
+        //   });
+
+        if (company === "yes" && !validCode) {
+          openAuthPopup();
+        }
+
+      }
+
+
+      async function serviceAPI() {
+        let code = document.getElementById("code").value;
+        var button = document.getElementById("submit");
+
+        // Disable the button
+        button.disabled = true;
+
+        // Update the button text
+        button.innerHTML = "Submitting...";
+        console.log(code);
+
+        fetch(`https://serviceform-fld.smarthqpro.com/v1/customer/${code}`, {
+          method: "get",
+        })
+          .then(async (response) => {
+            if (response.status === 200) {
+              companySelect.value = "yes";
+              validCode = true;
+              popupContect.innerHTML = `<h3>Valid!</h3>`;
+              setTimeout(closePopup, 1000);
+            } else {
+              validCode = false;
+              companySelect.value = "no";
+              errorSpan = document.getElementById("errorSpan");
+              errorSpan.innerHTML =
+                response.status === 404
+                  ? "Invalid Service Number"
+                  : "Internal Server Error!";
+              button.disabled = false;
+              button.innerHTML = "Submit";
+
+              errorSpan.style.display = "block";
+            }
+
+            let event = new Event("change");
+            companySelect.dispatchEvent(event);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            validCode = false;
+            companySelect.value = "no";
+            errorSpan = document.getElementById("errorSpan");
+            errorSpan.innerHTML = "Internal Server Error!";
+            errorSpan.style.display = "block";
+            button.disabled = false;
+            button.innerHTML = "Submit";
+            let event = new Event("change");
+            companySelect.dispatchEvent(event);
+          });
+      }
+      moduleSelect.addEventListener("change", generateTable);
+      companySelect.addEventListener("change", generateTable);
+      planSelect.addEventListener("change", generateTable);
+
+      document
+        .querySelector(".svcPtlPopup-close")
+        .addEventListener("click", closePopup);
+
+      document
+        .querySelector(".svcPtlPopup-overlay")
+        .addEventListener("click", closePopup);
+
+      // window.onload = function () {
+      //   generateTable();
+      //   document.querySelector(".svcPtlPopup").classList.add("svcPtlPopup-hidden");
+      //   // Existing window.onload code (if any) goes here
+      // };
+
+      window.onload = generateTable();
+      window.addEventListener("pageshow", function (event) {
+        console.log(event);
+        if (
+          event.persisted ||
+          (window.performance && window.performance.navigation.type === 2)
+        ) {
+          // Run your function here
+          generateTable();
+        }
+      });
+
+    </script>
+</body>
+
+</html> 
