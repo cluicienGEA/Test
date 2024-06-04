@@ -333,13 +333,13 @@
           creditCardLink = "https://buy.stripe.com/7sI6s17VtbbZbSgfZh";
         } else if (isModuleIncluded) {
           if (isYearly) {
-            creditCardLink = "https://buy.stripe.com/4gw8A98Zx7ZN9K800a";
+            creditCardLink = "https://buy.stripe.com/5kAcQpa3BeobcWkfZq";
           } else {
             creditCardLink = "https://buy.stripe.com/6oE6s1fnVa7V7C04gt";
           }
         } else {
           if (isYearly) {
-            creditCardLink = "https://buy.stripe.com/fZebMlb7Ffsf9K89AV";
+            creditCardLink = "https://buy.stripe.com/7sI5nX4JheobbSg4gH";
           } else {
             creditCardLink = "https://buy.stripe.com/00g8A98Zxdk71dC4gC";
           }
@@ -377,13 +377,13 @@
         let creditCardLink;
         if (module === "no") {
           if (!monthly) {
-            creditCardLink = "https://buy.stripe.com/4gw8A98Zx7ZN9K800a";
+            creditCardLink = "https://buy.stripe.com/5kAcQpa3BeobcWkfZq";
           } else {
             creditCardLink = "https://buy.stripe.com/6oE6s1fnVa7V7C04gt";
           }
         } else {
           if (!monthly) {
-            creditCardLink = "https://buy.stripe.com/fZebMlb7Ffsf9K89AV";
+            creditCardLink = "https://buy.stripe.com/7sI5nX4JheobbSg4gH";
           } else {
             creditCardLink = "https://buy.stripe.com/00g8A98Zxdk71dC4gC";
           }
@@ -463,4 +463,3 @@
 </body>
 
 </html>
-
