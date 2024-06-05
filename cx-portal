@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -345,23 +344,19 @@
           }
         }
 
-        popupContect.innerHTML = `<h3>Payment Options</h3><a id="creditCard"><button id="creditCard">Pay by Credit Card</button></a><a id="partsAccount"><button id="partsAccountButton">Pay by GE Appliance Account</button></a>`;
-
-        // Update the popup with the correct links
-        document
-          .getElementById("creditCard")
-          .setAttribute("href", creditCardLink);
-        document.getElementById("partsAccount").setAttribute("href", partsLink);
+        popupContect.innerHTML = `
+          <h3>Already a Customer?</h3>
+          <p>To add this purchase to your account, please access your customer portal by clicking <a href="${partsLink}" style="color: #97D700;">HERE</a>.</p>
+          <p>If you’re new here, please click the 'Continue' button below to finalize your purchase.</p>
+          <button id="continueButton">CONTINUE</button>`;
 
         // Display the popup
         document.querySelector(".svcPtlPopup").style.display = "block";
         document.querySelector(".svcPtlPopup-overlay").style.display = "block";
 
-        if (!isYearly) {
-          document.getElementById("partsAccountButton").disabled = true;
-          document.getElementById("partsAccountButton").title =
-            "Note: Please note for subscription purchases, we currently offer only yearly billing plans through a GE Appliances account. For monthly billing plans, we kindly request you to proceed with the purchase using a credit card through our secure Stripe portal.";
-        }
+        document.getElementById("continueButton").onclick = () => {
+          window.location.href = creditCardLink;
+        };
       }
 
       function closePopup() {
@@ -401,6 +396,7 @@
           module === "yes"
             ? "https://uploads-ssl.webflow.com/61d5fc96029694ef0cf8f249/63ff0b4f20f51d2091c6f26a_SmartHQ%20Pro%20Interface-6.png"
             : "https://uploads-ssl.webflow.com/61d5fc96029694ef0cf8f249/644fcc6f17b2c36472c32fc2_SmartHQ%20Service%20Interface.png";
+        let replacementModuleLink = "https://buy.stripe.com/7sI6s17VtbbZbSgfZh";
 
         // Generate the HTML for the pricing table
         pricingTable.innerHTML = `
@@ -415,17 +411,20 @@
                     ? `<div style="font-size: 18px; margin-bottom: 20px;">*Excludes a one-time module cost of $${modulePrice}.</div>`
                     : ""
                   }
-                  <a href="${creditCardLink}"><button class="btn" id="sButton" style="background-color: #64A70B;">Buy Now</button></a>
+                  <button class="btn" id="sButton" style="background-color: #64A70B;" onclick="openPopup(${module === 'yes'}, ${!monthly}, false)">Buy Now</button>
+              </div>
+              <div class="pricing-col" style="border-color: #97D700;">
+                  <div class="pricing-img" style="background-image: url('https://uploads-ssl.webflow.com/61d5fc96029694ef0cf8f249/64e1d1b844c35d76357a09f3_Service%20Module.png');"></div>
+                  <h2>Replacement Module</h2>
+                  <div style="font-size: 40px; margin-bottom: 20px; color: #97D700; font-weight: bold;">$${modulePrice}</div>
+                  <div style="font-size: 18px; margin-bottom: 20px;">Lost your Bluetooth module? Add an additional one.</div>
+                  <button class="btn" id="mButton" style="background-color: #64A70B;" onclick="openPopup(false, false, true)">Buy Now</button>
               </div>
               <div class="pricing-col" style="border-color: #97D700;">
                   <div class="pricing-img" style="background-image: url('https://uploads-ssl.webflow.com/61d5fc96029694ef0cf8f249/6519b3c6af4f709c4a3e72f6_joint-enterprise-business-data-analysis.svg');"></div>
-                  <h2>Enterprise Bulk Discount</h2>
-                  <div style="font-size: 18px; margin-bottom: 20px;">Special pricing available for bulk accounts:</div>
-                  <ul style="list-style-type: none; padding: 0; text-align: left; font-size: 16px; margin-bottom: 20px;">
-                    <li>5-10 accounts: 10% off</li>
-                    <li>11-20 accounts: 15% off</li>
-                    <li>21+ accounts: 20% off</li>
-                  </ul>
+                  <h2>Enterprise</h2>
+                  <div style="font-size: 40px; margin-bottom: 20px; color: #97D700; font-weight: bold;">Custom</div>
+                  <div style="font-size: 18px; margin-bottom: 20px;">Special pricing available for 5 accounts or more.</div>
                   <a href="https://forms-fld.smarthqpro.com/contact"><button class="btn" style="background-color: #64A70B;">Contact Us</button></a>
               </div>
           `;
