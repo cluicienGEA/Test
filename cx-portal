@@ -324,13 +324,11 @@
       let popupContect = document.getElementById("svcPtlPopupContect");
       let validCode = false;
 
-      function openPopup(isModuleIncluded, isYearly, onlyModule) {
+      function openPopup(isModuleIncluded, isYearly) {
         // Determine the correct links based on the user's selections
         let partsLink = "https://forms.smarthqpro.com/parts";
         let creditCardLink;
-        if (onlyModule) {
-          creditCardLink = "https://buy.stripe.com/7sI6s17VtbbZbSgfZh";
-        } else if (isModuleIncluded) {
+        if (isModuleIncluded) {
           if (isYearly) {
             creditCardLink = "https://buy.stripe.com/5kAcQpa3BeobcWkfZq";
           } else {
@@ -396,7 +394,6 @@
           module === "yes"
             ? "https://uploads-ssl.webflow.com/61d5fc96029694ef0cf8f249/63ff0b4f20f51d2091c6f26a_SmartHQ%20Pro%20Interface-6.png"
             : "https://uploads-ssl.webflow.com/61d5fc96029694ef0cf8f249/644fcc6f17b2c36472c32fc2_SmartHQ%20Service%20Interface.png";
-        let replacementModuleLink = "https://buy.stripe.com/7sI6s17VtbbZbSgfZh";
 
         // Generate the HTML for the pricing table
         pricingTable.innerHTML = `
@@ -411,14 +408,7 @@
                     ? `<div style="font-size: 18px; margin-bottom: 20px;">*Excludes a one-time module cost of $${modulePrice}.</div>`
                     : ""
                   }
-                  <button class="btn" id="sButton" style="background-color: #64A70B;" onclick="openPopup(${module === 'yes'}, ${!monthly}, false)">Buy Now</button>
-              </div>
-              <div class="pricing-col" style="border-color: #97D700;">
-                  <div class="pricing-img" style="background-image: url('https://uploads-ssl.webflow.com/61d5fc96029694ef0cf8f249/64e1d1b844c35d76357a09f3_Service%20Module.png');"></div>
-                  <h2>Replacement Module</h2>
-                  <div style="font-size: 40px; margin-bottom: 20px; color: #97D700; font-weight: bold;">$${modulePrice}</div>
-                  <div style="font-size: 18px; margin-bottom: 20px;">Lost your Bluetooth module? Add an additional one.</div>
-                  <button class="btn" id="mButton" style="background-color: #64A70B;" onclick="openPopup(false, false, true)">Buy Now</button>
+                  <button class="btn" id="sButton" style="background-color: #64A70B;" onclick="openPopup(${module === 'yes'}, ${!monthly})">Buy Now</button>
               </div>
               <div class="pricing-col" style="border-color: #97D700;">
                   <div class="pricing-img" style="background-image: url('https://uploads-ssl.webflow.com/61d5fc96029694ef0cf8f249/6519b3c6af4f709c4a3e72f6_joint-enterprise-business-data-analysis.svg');"></div>
