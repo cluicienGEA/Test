@@ -100,7 +100,6 @@
       width: 100%;
       height: auto;
       min-height: 100px;
-      /* Responsive height */
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
@@ -167,21 +166,17 @@
       text-decoration: none;
       transition: background-color 0.3s ease-in-out;
       width: 80%;
-      /* Button width */
       text-align: center;
       display: block;
       cursor: pointer;
-      /* Cursor style */
     }
 
     .svcPtlPopup button:hover {
       background-color: green;
-      /* Hover effect */
     }
 
     .svcPtlPopup button:disabled {
       background-color: grey;
-      /* Hover effect */
     }
 
     .svcPtlPopup input {
@@ -205,9 +200,7 @@
       right: 10px;
       cursor: pointer;
       color: #fff;
-      /* Close button color */
       font-size: 20px;
-      /* Close button size */
     }
 
     .svcPtlPopup #cancel,
@@ -226,7 +219,6 @@
       justify-content: space-around;
     }
 
-    /* Responsive Styles */
     @media screen and (max-width: 600px) {
       body {
         padding: 10px;
@@ -234,7 +226,6 @@
 
       .pricing-col {
         flex-basis: 100%;
-        /* Full width on mobile */
         margin: 5px;
       }
 
@@ -249,40 +240,22 @@
 
     @media screen and (min-width: 601px) and (max-width: 900px) {
 
-      /* Adjustments for mobile landscape */
       .pricing-col {
         flex-basis: 50%;
-        /* Two columns in landscape */
       }
     }
 
     @media screen and (min-width: 901px) and (max-width: 1024px) {
 
-      /* Adjustments for tablets */
       .pricing-col {
-        /* flex-basis: 50%; */
         flex: 1;
-        /* Two columns on tablet */
       }
     }
 
-    /* @media screen and (min-width: 768px) { */
-
-    /* Targeting tablets and up */
-    /* .pricing-col { */
-    /* flex: 1; */
-    /* flex: 0 1 calc(50% - 20px); */
-    /* Two columns with margin accounted for */
-    /* } */
-    /* } */
-
     @media screen and (min-width: 1025px) {
 
-      /* Adjustments for laptops and desktops */
       .pricing-col {
-        /* flex-basis: 33.33%; */
         flex: 1;
-        /* Three columns on larger screens */
       }
     }
   </style>
@@ -409,13 +382,6 @@
                     : ""
                   }
                   <button class="btn" id="sButton" style="background-color: #64A70B;" onclick="openPopup(${module === 'yes'}, ${!monthly})">Buy Now</button>
-              </div>
-              <div class="pricing-col" style="border-color: #97D700;">
-                  <div class="pricing-img" style="background-image: url('https://uploads-ssl.webflow.com/61d5fc96029694ef0cf8f249/6519b3c6af4f709c4a3e72f6_joint-enterprise-business-data-analysis.svg');"></div>
-                  <h2>Enterprise</h2>
-                  <div style="font-size: 40px; margin-bottom: 20px; color: #97D700; font-weight: bold;">Custom</div>
-                  <div style="font-size: 18px; margin-bottom: 20px;">Special pricing available for 5 accounts or more.</div>
-                  <a href="https://forms-fld.smarthqpro.com/contact"><button class="btn" style="background-color: #64A70B;">Contact Us</button></a>
               </div>
           `;
 
